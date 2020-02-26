@@ -8,7 +8,7 @@ Cowboy::Cowboy()
 void Cowboy::mySlot()
 {
     QMessageBox msgBox;
-    msgBox.setText("hi cowboy");
+    msgBox.setText("hi this is the cowboy slot");
     msgBox.exec();
 }
 

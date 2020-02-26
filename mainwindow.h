@@ -22,6 +22,8 @@ private slots:
 
     void on_trackSat_adv_btn_clicked();
 
+    void zoePrivateSlot();
+
 public slots:
     void mwSlot();
 

@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupSamplingInputs(cowboy);
     setupAccessTimeInputs(cowboy);
 
-    QObject::connect( ui->download_adv_btn, SIGNAL(clicked()), cowboy, SIGNAL(Cowboy::mySlot()) );
+    connect(ui->download_adv_btn, &QPushButton::clicked, cowboy, &Cowboy::mySlot);
 }
 
 MainWindow::~MainWindow()
@@ -107,6 +107,13 @@ void MainWindow::on_trackSat_adv_btn_clicked()
 {
     QMessageBox msgBox;
     msgBox.setText("hello");
+    msgBox.exec();
+}
+
+void MainWindow::zoePrivateSlot()
+{
+    QMessageBox msgBox;
+    msgBox.setText("executing Zoe's private slot");
     msgBox.exec();
 }
 
