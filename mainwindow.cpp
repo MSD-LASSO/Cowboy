@@ -35,6 +35,25 @@ MainWindow::MainWindow(QWidget *parent) :
     setupSamplingInputs(cowboy);
     setupAccessTimeInputs(cowboy);
 
+    //std::system("HelloWorld");
+    //process.start("vim TestFile.txt");
+
+    //QProcess::execute("./HelloWorld");
+
+    QProcess *process = new QProcess(this);
+    QString file = "~/MSD/HelloWorld";
+    process->start(file);
+    process->waitForFinished();
+    //process->close();
+
+    QString result = process->readAllStandardOutput();
+
+    QMessageBox msgBox;
+    msgBox.setText(result);
+    msgBox.exec();
+
+    //QProcess::execute(file);
+
     connect(ui->download_adv_btn, &QPushButton::clicked, cowboy, &Cowboy::mySlot);
 }
 

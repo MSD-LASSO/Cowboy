@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QObject>
 #include <QMessageBox>
+#include <QProcess>
+#include <QThread>
 #include "cowboy.h"
 
 namespace Ui {
