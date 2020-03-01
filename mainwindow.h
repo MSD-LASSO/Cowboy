@@ -19,8 +19,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    Cowboy* cowboy=new Cowboy();
 
 private slots:
+
+
+    void on_updateSettings_statA_btn_clicked();
+
+    void on_checkAccess_adv_btn_clicked();
 
 public slots:
 
@@ -48,7 +54,7 @@ private:
     void setupFreqInputs(Cowboy* cowboy);
     void setupSamplingInputs(Cowboy* cowboy);
     void setupAccessTimeInputs(Cowboy* cowboy);
-
+    void updateSamplingInputs();
 };
 
 #endif // MAINWINDOW_H

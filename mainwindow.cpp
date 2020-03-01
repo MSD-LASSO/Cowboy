@@ -4,15 +4,14 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWi2ndow)
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     /* TODO
      * Make main class
      * make station tabs dynamic
      * add tooltips
-     * implement events
+     * implement evensts
      * warning on close
      * mirror basic & adv tab
      * check that 20 MSPS is max sample rate
@@ -23,8 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
      * fix scope of default values...
     */
 
-    Cowboy* cowboy = new Cowboy();
-
+   //qDebug ("message %d, says: %s",cowboy->getRecordTime(),"asdf");
     QIcon folder_icon = QIcon("img/folder.png");
     ui->browse_basic_btn->setIcon(folder_icon);
     ui->browse_adv_btn->setIcon(folder_icon);
@@ -105,23 +103,38 @@ void MainWindow::setupAccessTimeInputs(Cowboy* cowboy)
     ui->tleTol_label->setText( QString::number(tleTol, 'g', decTleTol));
 }
 
-void MainWindow::on_trackSat_adv_btn_clicked()
+
+void MainWindow::on_checkAccess_adv_btn_clicked()
 {
-    QMessageBox msgBox;
-    msgBox.setText("hello");
-    msgBox.exec();
+ // qDebug("frequency %f: \n",cowboy->getCenterFreq());
+  qDebug("sampling rate %f: \n ",cowboy->getSampleRate());
+ // qDebug("access %s: \n",cowboy->getStartAccess().toString());
 }
 
-void MainWindow::zoePrivateSlot()
+
+
+//void MainWindow::runningAccessTimeProgram(Cowboy* cowboy)
+//{
+
+
+  //   qDebug ("freq %f:",cowboy->getSampleRate());
+
+//}
+
+void MainWindow::updateSamplingInputs()
 {
-    QMessageBox msgBox;
-    msgBox.setText("executing Zoe's private slot");
-    msgBox.exec();
+    // record interval
+
+    cowboy->setRecordInterval(ui->recInterval_statA_spinBox->value());
+    cowboy->setSampleRate(ui->sampleRate_statA_spinBox->value());
+    cowboy->setRecordTime(ui->recTime_statA_spinBox->value());
+
 }
 
-void MainWindow::mwSlot()
+void MainWindow::on_updateSettings_statA_btn_clicked()
 {
-    QMessageBox msgBox;
-    msgBox.setText("connection worked");
-    msgBox.exec();
+   updateSamplingInputs();
+ //   setupAccessTimeInputs(cowboy);
+ //   setupSamplingInputs(cowboy);
+ //   setupFreqInputs(cowboy);
 }
