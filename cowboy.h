@@ -31,6 +31,10 @@ public:
     double getCenterFreq();
     double getFilterFreq();
 
+    double setRecordInterval(double recordoIntervalo);
+    double setRecordTime(double recordoTiempo);
+    double setSampleRate(double sampuloRato);
+
     QString getStringOutputFolder();
 
 public slots:

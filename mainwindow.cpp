@@ -7,12 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     /* TODO
      * Make main class
      * make station tabs dynamic
      * add tooltips
-     * implement events
+     * implement evensts
      * warning on close
      * mirror basic & adv tab
      * check that 20 MSPS is max sample rate
@@ -23,8 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
      * fix scope of default values...
     */
 
-    Cowboy* cowboy = new Cowboy();
-
+   //qDebug ("message %d, says: %s",cowboy->getRecordTime(),"asdf");
     QIcon folder_icon = QIcon("img/folder.png");
     ui->browse_basic_btn->setIcon(folder_icon);
     ui->browse_adv_btn->setIcon(folder_icon);
@@ -35,10 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setupSamplingInputs(cowboy);
     setupAccessTimeInputs(cowboy);
 
-    //std::system("HelloWorld");
+    //std::system("./testing1");
     //process.start("vim TestFile.txt");
-
-    //QProcess::execute("./HelloWorld");
 
     QProcess *process = new QProcess(this);
     QString file = "~/MSD/HelloWorld";
@@ -141,4 +137,40 @@ void MainWindow::mwSlot()
     QMessageBox msgBox;
     msgBox.setText("connection worked");
     msgBox.exec();
+
+}
+
+void MainWindow::on_checkAccess_adv_btn_clicked()
+{
+ // qDebug("frequency %f: \n",cowboy->getCenterFreq());
+  qDebug("sampling rate %f: \n ",cowboy->getSampleRate());
+ // qDebug("access %s: \n",cowboy->getStartAccess().toString());
+}
+
+
+
+//void MainWindow::runningAccessTimeProgram(Cowboy* cowboy)
+//{
+
+
+  //   qDebug ("freq %f:",cowboy->getSampleRate());
+
+//}
+
+void MainWindow::updateSamplingInputs()
+{
+    // record interval
+
+    cowboy->setRecordInterval(ui->recInterval_statA_spinBox->value());
+    cowboy->setSampleRate(ui->sampleRate_statA_spinBox->value());
+    cowboy->setRecordTime(ui->recTime_statA_spinBox->value());
+
+}
+
+void MainWindow::on_updateSettings_statA_btn_clicked()
+{
+   updateSamplingInputs();
+ //   setupAccessTimeInputs(cowboy);
+ //   setupSamplingInputs(cowboy);
+ //   setupFreqInputs(cowboy);
 }

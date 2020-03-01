@@ -66,3 +66,19 @@ QString Cowboy::getStringOutputFolder()
 {
     return folder;
 }
+
+double Cowboy::setRecordInterval(double elRecordoIntervalo)
+{
+    recordInterval=elRecordoIntervalo;
+}
+
+double Cowboy::setRecordTime(double elRecordoTiempo)
+{
+    recordTime=elRecordoTiempo;
+}
+
+double Cowboy::setSampleRate(double sampuloRato)
+{
+    sampleRate=sampuloRato;
+}
+
