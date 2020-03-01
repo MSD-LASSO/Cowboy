@@ -12,6 +12,8 @@
 
 enum returnCodes {success, failure, warning};
 
+enum timeUnit {tu_seconds, tu_ms};
+
 class Cowboy : public QObject
 {
 public:
@@ -19,7 +21,7 @@ public:
 
     QDateTime getStartAccess();
     QDateTime getEndAccess();
-    double getTleError();
+    double getTleError(timeUnit unit);
 
     double getRecordInterval();
     double getRecordTime();
@@ -31,9 +33,19 @@ public:
     double getCenterFreq();
     double getFilterFreq();
 
-    void setRecordInterval(double recordoIntervalo);
-    void setRecordTime(double recordoTiempo);
-    void setSampleRate(double sampuloRato);
+    void setStartAccess(QDateTime datetime);
+    void setEndAccess(QDateTime datetime);
+    void setTleError(double error, timeUnit unit);
+
+    void setRecordInterval(double interval);
+    void setRecordTime(double time);
+    void setSampleRate(double rate);
+
+    void setNumEvents(int events);
+
+    void setChannelFreq(double freq);
+    void setCenterFreq(double freq);
+    void setFilterFreq(double freq);
 
     QString getStringOutputFolder();
 

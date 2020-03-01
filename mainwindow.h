@@ -48,12 +48,11 @@ private:
     double maxRecordTime;               // ms, dynamically determined based on the current recordInterval
     int decRecordTime = 3;
 
-    int defaultTleTol = 300;            // ms
     int decTleTol = 3;
 
-    void setupFreqInputs(Cowboy* cowboy);
-    void setupSamplingInputs(Cowboy* cowboy);
-    void setupAccessTimeInputs(Cowboy* cowboy);
+    void setupFreqInputs();
+    void setupSamplingInputs();
+    void setupAccessTimeInputs();
     void updateSamplingInputs();
 };
 

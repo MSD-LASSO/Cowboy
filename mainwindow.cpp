@@ -29,9 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowTitle("Cowboy");
 
-    setupFreqInputs(cowboy);
-    setupSamplingInputs(cowboy);
-    setupAccessTimeInputs(cowboy);
+    setupFreqInputs();
+    setupSamplingInputs();
+    setupAccessTimeInputs();
 
     std::system("./HelloWorld");
 
@@ -43,7 +43,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setupFreqInputs(Cowboy* cowboy)
+void MainWindow::setupFreqInputs()
 {
     // frequency spinboxes
     ui->channelFreq_basic_spinBox->setMaximum(maxFreq);
@@ -67,7 +67,7 @@ void MainWindow::setupFreqInputs(Cowboy* cowboy)
     ui->filterBand_statA_spindBox->setDecimals(decFilt);
 }
 
-void MainWindow::setupSamplingInputs(Cowboy* cowboy)
+void MainWindow::setupSamplingInputs()
 {
     // record interval
     ui->recInterval_statA_spinBox->setMaximum(maxRecordInterval);
@@ -86,10 +86,9 @@ void MainWindow::setupSamplingInputs(Cowboy* cowboy)
     ui->recTime_statA_spinBox->setDecimals(decRecordTime);
 }
 
-void MainWindow::setupAccessTimeInputs(Cowboy* cowboy)
+void MainWindow::setupAccessTimeInputs()
 {
     // time dates
-    // TODO change to use getAccess functions
     ui->startAccess_basic_date->setDate(cowboy->getStartAccess().date());
     ui->endAccess_basic_date->setDate(cowboy->getEndAccess().date());
 
@@ -97,12 +96,9 @@ void MainWindow::setupAccessTimeInputs(Cowboy* cowboy)
     ui->endAccess_adv_timeDate->setDateTime(cowboy->getEndAccess());
 
     // TLE tolerance
-    ui->tleTol_dial->setValue(defaultTleTol);
-
-    double tleTol = (double)ui->tleTol_dial->value()/(double)1000;
-    ui->tleTol_label->setText( QString::number(tleTol, 'g', decTleTol));
+    ui->tleTol_dial->setValue( cowboy->getTleError(tu_ms) );
+    ui->tleTol_label->setText( QString::number(cowboy->getTleError(tu_seconds), 'g', decTleTol) );
 }
-
 
 void MainWindow::on_checkAccess_adv_btn_clicked()
 {
