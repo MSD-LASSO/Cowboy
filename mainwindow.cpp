@@ -65,6 +65,11 @@ void MainWindow::setupFreqInputs()
     ui->filterBand_statA_spindBox->setMaximum(maxFilt);
     ui->filterBand_statA_spindBox->setValue(cowboy->getFilterFreq());
     ui->filterBand_statA_spindBox->setDecimals(decFilt);
+
+    // decimation
+    ui->decim_statA_spinBox->setMinimum(minDecimation);
+    ui->decim_statA_spinBox->setMaximum(maxDecimation);
+    ui->decim_statA_spinBox->setValue(cowboy->getDecimation());
 }
 
 void MainWindow::setupSamplingInputs()
@@ -129,10 +134,7 @@ void MainWindow::updateSamplingInputs()
 
 void MainWindow::on_updateSettings_statA_btn_clicked()
 {
-   updateSamplingInputs();
- //   setupAccessTimeInputs(cowboy);
- //   setupSamplingInputs(cowboy);
- //   setupFreqInputs(cowboy);
+   // TODO make system call to run python script that will update SDR settings
 }
 
 void MainWindow::on_startAccess_adv_timeDate_editingFinished()
@@ -182,5 +184,65 @@ void MainWindow::on_endAccess_adv_timeDate_editingFinished()
         endDateTime = startDateTime.addDays(1);
         ui->endAccess_adv_timeDate->setDateTime(endDateTime);
         cowboy->setEndAccess(endDateTime);
+    }
+}
+
+void MainWindow::on_channelFreq_adv_statA_spinBox_editingFinished()
+{
+    cowboy->setChannelFreq(ui->channelFreq_adv_statA_spinBox->value());
+}
+
+void MainWindow::on_centerFreq_adv_statA_spinBox_editingFinished()
+{
+    cowboy->setCenterFreq(ui->centerFreq_adv_statA_spinBox->value());
+}
+
+void MainWindow::on_filterBand_statA_spindBox_editingFinished()
+{
+    cowboy->setFilterFreq(ui->filterBand_statA_spindBox->value());
+}
+
+void MainWindow::on_decim_statA_spinBox_editingFinished()
+{
+    cowboy->setDecimation(ui->decim_statA_spinBox->value());
+}
+
+void MainWindow::on_recInterval_statA_spinBox_editingFinished()
+{
+    // compare in seconds
+    double recordInterval = ui->recInterval_statA_spinBox->value();
+    double recordTime = cowboy->getRecordTime()/(double)MS_IN_S;
+
+    // validate
+    if (recordInterval >= recordTime)
+    {
+        cowboy->setRecordInterval(recordInterval);
+    }
+    else // don't change record interval
+    {
+        recordInterval = cowboy->getRecordInterval();
+        ui->recInterval_statA_spinBox->setValue( recordInterval );
+    }
+}
+
+void MainWindow::on_sampleRate_statA_spinBox_editingFinished()
+{
+    cowboy->setSampleRate(ui->sampleRate_statA_spinBox->value());
+}
+
+void MainWindow::on_recTime_statA_spinBox_editingFinished()
+{
+    //compare in ms
+    double recordTime = ui->recTime_statA_spinBox->value();
+    double recordInterval = cowboy->getRecordInterval()*(double)MS_IN_S;
+
+    if (recordTime <= recordInterval)
+    {
+        cowboy->setRecordTime(recordTime);
+    }
+    else // don't change record Time
+    {
+        recordTime = cowboy->getRecordTime();
+        ui->recTime_statA_spinBox->setValue(recordTime);
     }
 }

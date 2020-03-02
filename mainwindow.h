@@ -32,6 +32,20 @@ private slots:
 
     void on_endAccess_adv_timeDate_editingFinished();
 
+    void on_channelFreq_adv_statA_spinBox_editingFinished();
+
+    void on_centerFreq_adv_statA_spinBox_editingFinished();
+
+    void on_filterBand_statA_spindBox_editingFinished();
+
+    void on_decim_statA_spinBox_editingFinished();
+
+    void on_recInterval_statA_spinBox_editingFinished();
+
+    void on_sampleRate_statA_spinBox_editingFinished();
+
+    void on_recTime_statA_spinBox_editingFinished();
+
 public slots:
 
 private:
@@ -53,6 +67,9 @@ private:
     int decRecordTime = 3;
 
     int decTleTol = 3;
+
+    int maxDecimation = 1000;
+    int minDecimation = 1;
 
     void setupFreqInputs();
     void setupSamplingInputs();
