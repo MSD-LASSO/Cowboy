@@ -31,11 +31,11 @@ double Cowboy::getTleError(TimeUnit unit)
 {
     if (unit == tu_seconds)
     {
-        return tleError*(double)MS_IN_S;
+        return tleError;
     }
     else // ms
     {
-        return tleError;
+        return tleError*(double)MS_IN_S;
     }
 }
 
@@ -74,6 +74,11 @@ double Cowboy::getFilterFreq()
     return filterFreq;
 }
 
+QString Cowboy::getNoradID()
+{
+    return noradId;
+}
+
 int Cowboy::getDecimation()
 {
     return decimation;
@@ -103,11 +108,11 @@ void Cowboy::setTleError(double error, TimeUnit unit)
 {
     if (unit == tu_seconds)
     {
-        tleError = error*(double)MS_IN_S;
+        tleError = error;//(double)MS_IN_S;
     }
     else // ms
     {
-        tleError = error;
+        tleError = error*(double)MS_IN_S;
     }
 }
 
@@ -144,6 +149,11 @@ void Cowboy::setCenterFreq(double freq)
 void Cowboy::setFilterFreq(double freq)
 {
     filterFreq = freq;
+}
+
+void Cowboy::setNoradID(QString norad)
+{
+    noradId=norad;
 }
 
 void Cowboy::setDecimation(int dec)

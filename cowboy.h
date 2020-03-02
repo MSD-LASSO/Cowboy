@@ -36,6 +36,8 @@ public:
     double getCenterFreq();
     double getFilterFreq();
 
+    QString getNoradID();
+
     int getDecimation();
 
     QString getOutputFolder();
@@ -55,6 +57,9 @@ public:
     void setCenterFreq(double freq);
     void setFilterFreq(double freq);
 
+    void setNoradID(QString norad);
+
+
     void setDecimation(int dec);
 
     void setOutputFolder(QString outputFolder);
@@ -67,7 +72,7 @@ private:
 
     const int elapsedYears = 20; // years elapsed between default start and end access times
 
-    int noradId;
+    QString noradId;
 
     QDateTime startAccess = QDateTime::currentDateTime();
     QDateTime endAccess = QDateTime::currentDateTime().addYears(elapsedYears);

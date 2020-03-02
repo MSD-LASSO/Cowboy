@@ -46,6 +46,8 @@ private slots:
 
     void on_recTime_statA_spinBox_editingFinished();
 
+    void on_noradID_adv_edit_editingFinished();
+
 public slots:
 
 private:
