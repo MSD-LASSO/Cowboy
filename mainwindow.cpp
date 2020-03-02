@@ -134,3 +134,53 @@ void MainWindow::on_updateSettings_statA_btn_clicked()
  //   setupSamplingInputs(cowboy);
  //   setupFreqInputs(cowboy);
 }
+
+void MainWindow::on_startAccess_adv_timeDate_editingFinished()
+{
+    QDateTime startDateTime = ui->startAccess_adv_timeDate->dateTime();
+    QDateTime endDateTime = cowboy->getEndAccess();
+
+    // validate entry
+    if (startDateTime.date() >= QDate::currentDate())    // check date only so start is not always reset
+    {
+        if (startDateTime < endDateTime)
+        {
+            cowboy->setStartAccess(startDateTime);
+        }
+        else // end date must be after start date
+        {
+            // response is to set the endDate to (startDate + 1 day)
+
+            cowboy->setStartAccess(startDateTime);
+
+            endDateTime = startDateTime.addDays(1);
+            ui->endAccess_adv_timeDate->setDateTime(endDateTime);
+            cowboy->setEndAccess(endDateTime);
+        }
+    }
+    else // start must be current date or later
+    {
+        startDateTime = QDateTime::currentDateTime();
+        ui->startAccess_adv_timeDate->setDateTime(startDateTime);
+        cowboy->setStartAccess(startDateTime);
+    }
+}
+
+void MainWindow::on_endAccess_adv_timeDate_editingFinished()
+{
+    QDateTime endDateTime = ui->endAccess_adv_timeDate->dateTime();
+    QDateTime startDateTime = cowboy->getStartAccess();
+
+    // validate entry
+
+    if (endDateTime > startDateTime)
+    {
+        cowboy->setEndAccess(endDateTime);
+    }
+    else // if end < start, response by setting the end date to (startDate + 1 day)
+    {
+        endDateTime = startDateTime.addDays(1);
+        ui->endAccess_adv_timeDate->setDateTime(endDateTime);
+        cowboy->setEndAccess(endDateTime);
+    }
+}

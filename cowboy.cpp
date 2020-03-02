@@ -22,7 +22,12 @@ QDateTime Cowboy::getEndAccess()
     return endAccess;
 }
 
-double Cowboy::getTleError(timeUnit unit)
+TimeZone Cowboy::getTimeZone()
+{
+    return timezone;
+}
+
+double Cowboy::getTleError(TimeUnit unit)
 {
     if (unit == tu_seconds)
     {
@@ -69,6 +74,16 @@ double Cowboy::getFilterFreq()
     return filterFreq;
 }
 
+int Cowboy::getDecimation()
+{
+    return decimation;
+}
+
+QString Cowboy::getOutputFolder()
+{
+    return folder;
+}
+
 void Cowboy::setStartAccess(QDateTime datetime)
 {
     startAccess = datetime;
@@ -79,7 +94,12 @@ void Cowboy::setEndAccess(QDateTime datetime)
     endAccess = datetime;
 }
 
-void Cowboy::setTleError(double error, timeUnit unit)
+void Cowboy::setTimeZone(TimeZone tz)
+{
+    timezone = tz;
+}
+
+void Cowboy::setTleError(double error, TimeUnit unit)
 {
     if (unit == tu_seconds)
     {
@@ -126,8 +146,12 @@ void Cowboy::setFilterFreq(double freq)
     filterFreq = freq;
 }
 
-QString Cowboy::getStringOutputFolder()
+void Cowboy::setDecimation(int dec)
 {
-    return folder;
+    decimation = dec;
 }
 
+void Cowboy::setOutputFolder(QString outputFolder)
+{
+    folder = outputFolder;
+}

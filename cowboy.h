@@ -10,9 +10,11 @@
 
 //static const int staticPublicVar = 10;
 
-enum returnCodes {success, failure, warning};
+enum ReturnCodes {success, failure, warning};
 
-enum timeUnit {tu_seconds, tu_ms};
+enum TimeUnit {tu_seconds, tu_ms};
+
+enum TimeZone {tz_UTC, tz_EST, tz_CST, tz_MST, tz_PST};
 
 class Cowboy : public QObject
 {
@@ -21,7 +23,8 @@ public:
 
     QDateTime getStartAccess();
     QDateTime getEndAccess();
-    double getTleError(timeUnit unit);
+    TimeZone getTimeZone();
+    double getTleError(TimeUnit unit);
 
     double getRecordInterval();
     double getRecordTime();
@@ -33,9 +36,14 @@ public:
     double getCenterFreq();
     double getFilterFreq();
 
+    int getDecimation();
+
+    QString getOutputFolder();
+
     void setStartAccess(QDateTime datetime);
     void setEndAccess(QDateTime datetime);
-    void setTleError(double error, timeUnit unit);
+    void setTimeZone(TimeZone tz);
+    void setTleError(double error, TimeUnit unit);
 
     void setRecordInterval(double interval);
     void setRecordTime(double time);
@@ -47,7 +55,9 @@ public:
     void setCenterFreq(double freq);
     void setFilterFreq(double freq);
 
-    QString getStringOutputFolder();
+    void setDecimation(int dec);
+
+    void setOutputFolder(QString outputFolder);
 
 public slots:
     void mySlot();
@@ -61,10 +71,11 @@ private:
 
     QDateTime startAccess = QDateTime::currentDateTime();
     QDateTime endAccess = QDateTime::currentDateTime().addYears(elapsedYears);
+    TimeZone timezone = tz_EST;
     double tleError = 0.3;          // s
 
     double recordInterval = 10.0;   // s
-    double recordTime = 500.0;     // ms
+    double recordTime = 500.0;      // ms
     double sampleRate = 10.0;       // MSPS
 
     int numEvents;
@@ -75,6 +86,8 @@ private:
     double channelFreq = 437.0; // MHz
     double centerFreq = 437.0;  // MHz
     double filterFreq = 10.0;   // kHz
+
+    int decimation = 1;
 
     QString folder = "/out";
 };

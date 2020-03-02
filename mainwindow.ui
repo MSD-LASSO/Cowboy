@@ -441,6 +441,9 @@
         <string>Advanced</string>
        </attribute>
        <widget class="QToolButton" name="browse_adv_btn">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="geometry">
          <rect>
           <x>560</x>
@@ -527,7 +530,7 @@
        </widget>
        <widget class="QLineEdit" name="outputFolder_adv_edit">
         <property name="enabled">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="geometry">
          <rect>
@@ -536,6 +539,9 @@
           <width>161</width>
           <height>20</height>
          </rect>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
         </property>
        </widget>
        <widget class="QLineEdit" name="noradID_adv_edit">
@@ -567,6 +573,9 @@
         </property>
        </widget>
        <widget class="QDateTimeEdit" name="startAccess_adv_timeDate">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="geometry">
          <rect>
           <x>390</x>
@@ -600,6 +609,9 @@
         </property>
        </widget>
        <widget class="QDateTimeEdit" name="endAccess_adv_timeDate">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="geometry">
          <rect>
           <x>390</x>
@@ -615,6 +627,9 @@
         </property>
        </widget>
        <widget class="QComboBox" name="timezone_combo">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="geometry">
          <rect>
           <x>531</x>

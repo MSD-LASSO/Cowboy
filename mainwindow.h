@@ -28,6 +28,10 @@ private slots:
 
     void on_checkAccess_adv_btn_clicked();
 
+    void on_startAccess_adv_timeDate_editingFinished();
+
+    void on_endAccess_adv_timeDate_editingFinished();
+
 public slots:
 
 private:
