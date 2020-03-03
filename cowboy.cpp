@@ -74,7 +74,7 @@ double Cowboy::getFilterFreq()
     return filterFreq;
 }
 
-QString Cowboy::getNoradID()
+int Cowboy::getNoradID()
 {
     return noradId;
 }
@@ -151,9 +151,9 @@ void Cowboy::setFilterFreq(double freq)
     filterFreq = freq;
 }
 
-void Cowboy::setNoradID(QString norad)
+void Cowboy::setNoradID(int norad)
 {
-    noradId=norad;
+    noradId = norad;
 }
 
 void Cowboy::setDecimation(int dec)

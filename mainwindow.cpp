@@ -8,21 +8,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     /* TODO
-     * Make main class
      * make station tabs dynamic
      * add tooltips
      * implement evensts
      * warning on close
      * mirror basic & adv tab
-     * check that 20 MSPS is max sample rate
      * check sample rate precision and reflect in decimals
      * grey out unimplemented functions
      * default value for output folder
      * add event: max record time based on current record interval
-     * fix scope of default values...
     */
 
-   //qDebug ("message %d, says: %s",cowboy->getRecordTime(),"asdf");
     QIcon folder_icon = QIcon("img/folder.png");
     ui->browse_basic_btn->setIcon(folder_icon);
     ui->browse_adv_btn->setIcon(folder_icon);
@@ -103,38 +99,41 @@ void MainWindow::setupAccessTimeInputs()
     // TLE tolerance
     ui->tleTol_dial->setValue( cowboy->getTleError(tu_seconds) );
     ui->tleTol_label->setText( QString::number(cowboy->getTleError(tu_seconds), 'g', decTleTol) );
+
+    // norad ID
+    // pad display text with leading 0's
+    setNoradIdText(cowboy->getNoradID());
+    ui->noradID_adv_edit->setInputMask(noradIdInputMask);
 }
 
 void MainWindow::on_checkAccess_adv_btn_clicked()
 {
- // qDebug("frequency %f: \n",cowboy->getCenterFreq());
- // qDebug("sampling rate %f: \n ",cowboy->getSampleRate());
- // qDebug("access %s: \n",cowboy->getStartAccess().toString());
- // std::system("./HelloWorld");
- QString commandStringPt1="java -jar OrekitAccessDopplerCalculator.jar ";
- QString tleErrorString= QString::number(cowboy->getTleError(tu_seconds), 'f', 3);
- QString recordRateString=QString::number(cowboy->getRecordInterval(),'f',3);
- //QString noradIDString=QString::number(cowboy->getNoradID(),'f',3);
- QString noradIDString=cowboy->getNoradID();
- QString channelFreqString=QString::number(cowboy->getChannelFreq(),'f',3);
- QString commandStringTotal=commandStringPt1+"noradID="+noradIDString+" errorTimeForTLE="+tleErrorString+" recordingRate="+
-         recordRateString+" channelFrequency="+channelFreqString;
-// qDebug("asdf %s", noradIDString.toUtf8().constData());
- //TO DO : START TIME/ END TIME STRING CONVERSION
-qDebug("string %s",commandStringTotal.toUtf8().constData());
-  //const char *commandStringChar=commandStringPt1.toStdString().c_str();
- const char *commandStringChar=commandStringTotal.toUtf8().constData();
-// std::system("./HelloWorld");
+    // qDebug("frequency %f: \n",cowboy->getCenterFreq());
+    // qDebug("sampling rate %f: \n ",cowboy->getSampleRate());
+    // qDebug("access %s: \n",cowboy->getStartAccess().toString());
+    // std::system("./HelloWorld");
+    QString commandStringPt1="java -jar OrekitAccessDopplerCalculator.jar ";
+    QString tleErrorString= QString::number(cowboy->getTleError(tu_seconds), 'f', 3);
+    QString recordRateString=QString::number(cowboy->getRecordInterval(),'f',3);
+    //QString noradIDString=QString::number(cowboy->getNoradID(),'f',3);
+    QString noradIDString = QString::number(cowboy->getNoradID(), DECIMAL_BASE);
+    QString channelFreqString=QString::number(cowboy->getChannelFreq(),'f',3);
+    QString commandStringTotal=commandStringPt1+"noradID="+noradIDString+" errorTimeForTLE="+tleErrorString+" recordingRate="+
+            recordRateString+" channelFrequency="+channelFreqString;
+    // qDebug("asdf %s", noradIDString.toUtf8().constData());
+    //TO DO : START TIME/ END TIME STRING CONVERSION
+    qDebug("string %s",commandStringTotal.toUtf8().constData());
+    //const char *commandStringChar=commandStringPt1.toStdString().c_str();
+    const char *commandStringChar=commandStringTotal.toUtf8().constData();
+    // std::system("./HelloWorld");
+
+    std::system(commandStringChar);
+    //std::system("java -jar OrekitAccessDopplerCalculator.jar noradID=30776");
+
+    //java -jar OrekitAccessDopplerCalculator.jar errorTimeForTLE=0.3 recordingRate=60 noradID=30776 channelFrequency=437.15 endTime=2020-02-12T17:08:34.584+00:00
 
 
-
-std::system(commandStringChar);
-  //std::system("java -jar OrekitAccessDopplerCalculator.jar noradID=30776");
-
-  //java -jar OrekitAccessDopplerCalculator.jar errorTimeForTLE=0.3 recordingRate=60 noradID=30776 channelFrequency=437.15 endTime=2020-02-12T17:08:34.584+00:00
 }
-
-
 
 void MainWindow::updateSamplingInputs()
 {
@@ -263,6 +262,22 @@ void MainWindow::on_recTime_statA_spinBox_editingFinished()
 
 void MainWindow::on_noradID_adv_edit_editingFinished()
 {
-     cowboy->setNoradID(ui->noradID_adv_edit->text());
+    bool returnStatus;
+    int noradId = ui->noradID_adv_edit->text().toInt(&returnStatus);
+    if (true == returnStatus && noradId > 0)
+    {
+        cowboy->setNoradID(noradId);
+        setNoradIdText(noradId);
+    }
+    else
+    {
+        setNoradIdText(cowboy->getNoradID());
+    }
 }
 
+void MainWindow::setNoradIdText(int id)
+{
+    // pad display text with leading 0's
+    QString noradIdStr = QString("%1").arg((uint)id, noradIdLength, (int)DECIMAL_BASE, QChar('0'));
+    ui->noradID_adv_edit->setText(noradIdStr);
+}

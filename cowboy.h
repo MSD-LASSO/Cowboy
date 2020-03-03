@@ -7,6 +7,7 @@
 #include <QDateTime>
 
 #define MS_IN_S 1000
+#define DECIMAL_BASE 10
 
 //static const int staticPublicVar = 10;
 
@@ -15,6 +16,9 @@ enum ReturnCodes {success, failure, warning};
 enum TimeUnit {tu_seconds, tu_ms};
 
 enum TimeZone {tz_UTC, tz_EST, tz_CST, tz_MST, tz_PST};
+
+static QString noradIdInputMask = "00000"; // up to 5 digit number
+static int noradIdLength = 5;
 
 class Cowboy : public QObject
 {
@@ -36,7 +40,7 @@ public:
     double getCenterFreq();
     double getFilterFreq();
 
-    QString getNoradID();
+    int getNoradID();
 
     int getDecimation();
 
@@ -57,8 +61,7 @@ public:
     void setCenterFreq(double freq);
     void setFilterFreq(double freq);
 
-    void setNoradID(QString norad);
-
+    void setNoradID(int norad);
 
     void setDecimation(int dec);
 
@@ -72,7 +75,7 @@ private:
 
     const int elapsedYears = 20; // years elapsed between default start and end access times
 
-    QString noradId;
+    int noradId = 00001;
 
     QDateTime startAccess = QDateTime::currentDateTime();
     QDateTime endAccess = QDateTime::currentDateTime().addYears(elapsedYears);

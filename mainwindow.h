@@ -77,6 +77,8 @@ private:
     void setupSamplingInputs();
     void setupAccessTimeInputs();
     void updateSamplingInputs();
+
+    void setNoradIdText(int id);
 };
 
 #endif // MAINWINDOW_H
