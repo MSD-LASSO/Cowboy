@@ -48,6 +48,7 @@ private slots:
 
     void on_noradID_adv_edit_editingFinished();
 
+
 public slots:
 
 private:

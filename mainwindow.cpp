@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupFreqInputs();
     setupSamplingInputs();
     setupAccessTimeInputs();
-
+    cowboy->readingAccessTimes();
     //std::system("./HelloWorld");
 
     connect(ui->download_adv_btn, &QPushButton::clicked, cowboy, &Cowboy::mySlot);
@@ -281,3 +281,5 @@ void MainWindow::setNoradIdText(int id)
     QString noradIdStr = QString("%1").arg((uint)id, noradIdLength, (int)DECIMAL_BASE, QChar('0'));
     ui->noradID_adv_edit->setText(noradIdStr);
 }
+
+

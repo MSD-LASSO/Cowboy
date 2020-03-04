@@ -67,6 +67,8 @@ public:
 
     void setOutputFolder(QString outputFolder);
 
+    void readingAccessTimes();
+
 public slots:
     void mySlot();
 
@@ -98,6 +100,10 @@ private:
     int decimation = 1;
 
     QString folder = "/out";
+    QVector<QVector<QString> >datesArray;
+
+    QVector<QVector<QVector<QString> > > frequenciesArray;
+
 };
 
 
