@@ -26,11 +26,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    cowboy.cpp
+    cowboy.cpp \
+    accesstimesdialog.cpp
 
 HEADERS += \
         mainwindow.h \
-    cowboy.h
+    cowboy.h \
+    accesstimesdialog.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    accesstimesdialog.ui

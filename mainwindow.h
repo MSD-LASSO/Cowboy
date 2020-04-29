@@ -48,6 +48,8 @@ private slots:
 
     void on_noradID_adv_edit_editingFinished();
 
+    void on_tleTol_dial_actionTriggered(int action);
+
 public slots:
 
 private:

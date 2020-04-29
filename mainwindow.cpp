@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     /* TODO
-     * make station tabs dynamic
+     * make station tabs dynamic, so we can add extra stations if needed
      * add tooltips
      * implement evensts
      * warning on close

@@ -5,6 +5,7 @@ Cowboy::Cowboy()
 
 }
 
+// used for testing
 void Cowboy::mySlot()
 {
     QMessageBox msgBox;
